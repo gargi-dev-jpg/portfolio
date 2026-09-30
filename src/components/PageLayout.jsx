@@ -18,11 +18,8 @@ function PageLayout({ eyebrow, title, description, children }) {
     <main className="bento-container page-layout">
       {!isHomePage && (
         <div style={{ marginBottom: '16px', marginTop: '-16px' }}>
-          <button 
-            onClick={handleBack} 
-            style={{ background: 'transparent', border: 'none', color: 'var(--text-primary)', cursor: 'pointer', fontSize: '16px', display: 'flex', alignItems: 'center', gap: '8px', padding: 0, fontWeight: 'bold' }}
-          >
-            ← Back
+          <button className="back-button" onClick={handleBack}>
+            <span className="back-button-arrow">←</span> Back
           </button>
         </div>
       )}

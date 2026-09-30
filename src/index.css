@@ -353,6 +353,34 @@ body {
   border-color: var(--accent-color);
   background: var(--border-glow);
 }
+.back-button {
+  border-radius: 9999px;
+  padding: 8px 18px;
+  background: transparent;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+.back-button:hover {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 12px var(--border-glow);
+  transform: translateX(-3px);
+}
+.back-button-arrow {
+  transition: transform 0.3s ease;
+}
+.back-button:hover .back-button-arrow {
+  transform: translateX(-3px);
+}
 .links-grid {
   display: flex;
   flex-direction: column;
