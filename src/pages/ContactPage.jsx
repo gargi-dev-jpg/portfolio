@@ -35,7 +35,6 @@ function ContactPage() {
             Mail via Gmail ↗
           </a>
           <p>{portfolioData.email}</p>
-          <p>{portfolioData.phone}</p>
           {portfolioData.socials.map(social => (
             <a key={social.name} className="btn btn-outline" href={social.url} target="_blank" rel="noopener noreferrer">
               {social.icon} {social.name}

@@ -2,11 +2,13 @@ import { useState } from 'react';
 
 const quickQuestions = [
   'What are your core skills?',
+  'Skills kya hain?',
   'Tell me about your projects',
   'What is your education background?',
 ];
 
 function AiAssistantCard() {
+  const [isOpen, setIsOpen] = useState(false);
   const [question, setQuestion] = useState('');
   const [reply, setReply] = useState('');
   const [error, setError] = useState('');
@@ -22,7 +24,6 @@ function AiAssistantCard() {
     setIsThinking(true);
 
     try {
-      // fetch() sends the question to Express; await lets us display its JSON reply.
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -43,11 +44,63 @@ function AiAssistantCard() {
     askQuestion();
   }
 
+  if (!isOpen) {
+    return (
+      <button 
+        onClick={() => setIsOpen(true)} 
+        style={{
+          position: 'fixed',
+          bottom: '24px',
+          right: '24px',
+          zIndex: 1000,
+          padding: '12px 24px',
+          borderRadius: '50px',
+          backgroundColor: 'var(--accent-color)',
+          color: '#fff',
+          border: 'none',
+          cursor: 'pointer',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+          fontSize: '16px',
+          fontWeight: 'bold',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px'
+        }}
+      >
+        ✦ Ask AI
+      </button>
+    );
+  }
+
   return (
-    <section id="ai" className="bento-card ai-assistant-card reveal-on-scroll" aria-labelledby="ai-assistant-title">
-      <div className="ai-assistant-heading">
-        <span className="ai-assistant-badge">✦ Ask AI About Me</span>
-        <h2 id="ai-assistant-title">Curious about my work?</h2>
+    <section 
+      id="ai" 
+      className="bento-card ai-assistant-card" 
+      aria-labelledby="ai-assistant-title"
+      style={{
+        position: 'fixed',
+        bottom: '24px',
+        right: '24px',
+        zIndex: 1000,
+        width: '350px',
+        maxWidth: 'calc(100vw - 48px)',
+        maxHeight: 'calc(100vh - 48px)',
+        overflowY: 'auto',
+        margin: 0,
+        boxShadow: '0 10px 30px rgba(0,0,0,0.2)'
+      }}
+    >
+      <div className="ai-assistant-heading" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <div>
+          <span className="ai-assistant-badge">✦ Ask AI About Me</span>
+          <h2 id="ai-assistant-title">Curious about my work?</h2>
+        </div>
+        <button 
+          onClick={() => setIsOpen(false)}
+          style={{ background: 'transparent', border: 'none', fontSize: '20px', cursor: 'pointer', color: 'var(--text-primary)' }}
+        >
+          ✕
+        </button>
       </div>
 
       <div className="ai-quick-questions" aria-label="Suggested questions">

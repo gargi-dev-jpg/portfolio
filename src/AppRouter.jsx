@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage';
 import NotFoundPage from './pages/NotFoundPage';
 import ProjectsPage from './pages/ProjectsPage';
 import SkillsPage from './pages/SkillsPage';
+import AiAssistantCard from './components/AiAssistantCard';
 import { portfolioData } from './data';
 import './index.css';
 
@@ -16,7 +17,6 @@ const navItems = [
   { label: 'Skills', path: '/skills' },
   { label: 'Education', path: '/education' },
   { label: 'Projects', path: '/projects' },
-  { label: 'Ask AI', path: '/ask-ai' },
   { label: 'Contact', path: '/contact' },
 ];
 
@@ -30,6 +30,7 @@ function AppRouter() {
 
 function PortfolioLayout() {
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -80,13 +81,22 @@ function PortfolioLayout() {
     <>
       <header className="header">
         <div className="navbar-inner">
-          <NavLink className="brand-link" to="/" end>{portfolioData.name}</NavLink>
-          <nav className="nav-links" aria-label="Main navigation">
+          <NavLink className="brand-link" to="/" end onClick={() => setIsMenuOpen(false)}>{portfolioData.name}</NavLink>
+          
+          <button className="mobile-menu-btn" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            {isMenuOpen ? '✕' : '☰'}
+          </button>
+
+          <nav className={`nav-links ${isMenuOpen ? 'is-open' : ''}`} aria-label="Main navigation">
             {navItems.map(item => (
-              <NavLink key={item.path} to={item.path}>{item.label}</NavLink>
+              <NavLink key={item.path} to={item.path} onClick={() => setIsMenuOpen(false)}>{item.label}</NavLink>
             ))}
+            <button type="button" onClick={toggleTheme} className="theme-toggle mobile-theme-toggle">
+              {theme === 'dark' ? '☀️ Light' : '🌙 Dark'}
+            </button>
           </nav>
-          <button type="button" onClick={toggleTheme} className="theme-toggle">
+          
+          <button type="button" onClick={toggleTheme} className="theme-toggle desktop-theme-toggle">
             {theme === 'dark' ? '☀️ Light' : '🌙 Dark'}
           </button>
         </div>
@@ -98,10 +108,10 @@ function PortfolioLayout() {
         <Route path="/skills" element={<SkillsPage />} />
         <Route path="/education" element={<EducationPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
-        <Route path="/ask-ai" element={<AskAiPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      <AiAssistantCard />
     </>
   );
 }

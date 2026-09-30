@@ -2,12 +2,11 @@ export const portfolioData = {
   name: "Gargi",
   role: "Computer Science & Engineering Student | AI & Future Technology",
   email: "gargi.stu.2@gmail.com",
-  phone: "8708306236",
   location: "Kurukshetra, Haryana, India",
   bio: "Computer Science & Engineering student at Chitkara University specializing in AI & Future Technology. Maintains a 9.32 CGPA and builds responsive web applications while exploring local AI and RAG systems.",
   assets: {
     photo: "/assets/profile-v2.jpeg",
-    resume: "/assets/resume-v2.pdf"
+    resume: "/assets/resume-v2.pdf?v=3"
   },
   socials: [
     { name: "GitHub", url: "https://github.com/gargi-dev-jpg", icon: "🔗" },

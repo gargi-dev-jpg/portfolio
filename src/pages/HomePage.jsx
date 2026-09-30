@@ -8,7 +8,6 @@ const pageCards = [
   { path: '/skills', title: 'Skills', detail: 'Programming, web development, and core CS.' },
   { path: '/education', title: 'Education', detail: 'Degree, academic highlights, and certifications.' },
   { path: '/projects', title: 'Projects', detail: `${portfolioData.projects.length} projects across web, AI, and systems.` },
-  { path: '/ask-ai', title: 'Ask AI', detail: 'Ask a question about Gargi’s profile.' },
   { path: '/contact', title: 'Contact', detail: 'Send a note or find Gargi online.' },
 ];
 

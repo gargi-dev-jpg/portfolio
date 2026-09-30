@@ -36,7 +36,7 @@ const assistantProfile = {
   projects: portfolioData.projects.map(({ title, tags, description }) => ({ title, tags, description })),
 };
 
-const assistantInstructions = `You are a friendly assistant representing ${portfolioData.name}'s portfolio. Answer warmly and concisely in 2 to 3 sentences. Only state facts included in this profile; never invent or infer details. If asked something outside the profile, say you can only answer questions about this portfolio.\n\nProfile: ${JSON.stringify(assistantProfile)}`;
+const assistantInstructions = `You are a friendly assistant representing ${portfolioData.name}'s portfolio. Answer warmly and concisely in 2 to 3 sentences. Only state facts included in this profile; never invent or infer details. If asked something outside the profile, say you can only answer questions about this portfolio. IMPORTANT: You must seamlessly understand queries in English, Hindi (Devanagari), and Hinglish (conversational Hindi written in the English alphabet). Reply in the exact same language and style the user used (e.g., respond in natural Hinglish if asked in Hinglish).\n\nProfile: ${JSON.stringify(assistantProfile)}`;
 const chatModels = [
   'gemini-2.5-flash',
   'gemini-2.5-flash-lite',
@@ -70,7 +70,7 @@ function createProfileReply(question) {
     return `Gargi's projects include ${projects.slice(0, 3).join(', ')}. She has also built ${projects.slice(3).join(' and ')}.`;
   }
 
-  if (/\b(education|degree|school|college|university|study|studied)\b/.test(normalizedQuestion)) {
+  if (/\b(education|degree|school|college|university|study|studied|padhai)\b/.test(normalizedQuestion)) {
     const { degree, institution, specialization, expected, cgpa } = portfolioData.education;
     return `Gargi is pursuing a ${degree} at ${institution}, specializing in ${specialization}, with graduation expected ${expected}. Her current CGPA is ${cgpa}.`;
   }
@@ -87,8 +87,12 @@ function createProfileReply(question) {
     return `Gargi's certifications include ${portfolioData.certifications.join(', ')}.`;
   }
 
-  if (/\b(contact|email|reach|phone|location)\b/.test(normalizedQuestion)) {
-    return `You can contact Gargi at ${portfolioData.email} or ${portfolioData.phone}. She is based in ${portfolioData.location}.`;
+  if (/\b(contact|email|reach|phone|location|sampark)\b/.test(normalizedQuestion)) {
+    return `You can contact Gargi at ${portfolioData.email}. She is based in ${portfolioData.location}.`;
+  }
+
+  if (/\b(kaun|who|kya)\b/.test(normalizedQuestion)) {
+    return `${portfolioData.name} is a ${portfolioData.role}. ${portfolioData.bio}`;
   }
 
   return `${portfolioData.name} is a ${portfolioData.role}. ${portfolioData.bio}`;
