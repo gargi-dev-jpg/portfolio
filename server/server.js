@@ -154,28 +154,6 @@ app.post('/api/kudos', async (request, response, next) => {
   }
 });
 
-app.post('/api/messages', async (request, response, next) => {
-  try {
-    const { name, email, message } = request.body;
-    if (![name, email, message].every(value => typeof value === 'string' && value.trim())) {
-      return response.status(400).json({ error: 'Please provide your name, email, and message.' });
-    }
-
-    const database = await readDatabase();
-    const savedMessage = {
-      name: name.trim(),
-      email: email.trim(),
-      message: message.trim(),
-      timestamp: new Date().toISOString(),
-    };
-
-    database.messages.push(savedMessage);
-    await writeDatabase(database);
-    response.status(201).json({ message: 'Message saved.' });
-  } catch (error) {
-    next(error);
-  }
-});
 
 // This route sends the visitor's question and trusted profile context to Gemini on the server.
 app.post('/api/chat', async (request, response) => {

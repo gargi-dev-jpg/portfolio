@@ -12,10 +12,18 @@ function ContactPage() {
     setIsSending(true);
     setStatus('');
     try {
-      const response = await fetch('/api/messages', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: '4ebe13ee-1279-4b5f-bed5-d059fe5b71dd',
+          name: form.name,
+          email: form.email,
+          message: form.message,
+        }),
       });
       if (!response.ok) throw new Error('Could not send your message.');
       setStatus('Message sent! ✓');

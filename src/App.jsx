@@ -114,11 +114,19 @@ function App() {
     setIsSendingMessage(true);
     setMessageStatus('');
     try {
-      // JSON.stringify turns the form values into JSON that the Express route can read.
-      const response = await fetch('/api/messages', {
+      // JSON.stringify turns the form values into JSON.
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(contactForm),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: '4ebe13ee-1279-4b5f-bed5-d059fe5b71dd',
+          name: contactForm.name,
+          email: contactForm.email,
+          message: contactForm.message,
+        }),
       });
       if (!response.ok) throw new Error('Could not send your message.');
       setMessageStatus('Message sent! ✓');
